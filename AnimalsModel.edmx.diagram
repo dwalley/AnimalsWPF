@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1432975d41f4cc18a84bb89069fd6b0" Name="Diagram1">
+        <EntityTypeShape EntityType="AnimalsDBModel.Animal" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsDBModel.CatBreed" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsDBModel.Cat" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsDBModel.DogBreed" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsDBModel.Dog" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsDBModel.Domecile" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="AnimalsDBModel.FK_CatsAll_Animals" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsDBModel.FK_DogsAll_Animals" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsDBModel.FK_CatsAll_CatBreedsAll" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsDBModel.FK_CatsAll_DomecilesAll" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsDBModel.FK_DogsAll_DogBreedsAll" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsDBModel.FK_DogsAll_DomecilesAll" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AnimalsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animals">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="Birthday" Type="date" />
+        </EntityType>
+        <EntityType Name="CatBreeds">
+          <Key>
+            <PropertyRef Name="CatBreedID" />
+          </Key>
+          <Property Name="CatBreedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatBreedName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Cats">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LikesCatnip" Type="bit" />
+          <Property Name="CatBreed" Type="int" />
+          <Property Name="DomecileID" Type="int" />
+          <Property Name="AnimalID" Type="int" />
+        </EntityType>
+        <EntityType Name="DogBreeds">
+          <Key>
+            <PropertyRef Name="DogBreedID" />
+          </Key>
+          <Property Name="DogBreedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DogBreedName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Dogs">
+          <Key>
+            <PropertyRef Name="DogID" />
+          </Key>
+          <Property Name="DogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaysFetch" Type="bit" />
+          <Property Name="DogBreedID" Type="int" />
+          <Property Name="DomecileID" Type="int" />
+          <Property Name="AnimalID" Type="int" />
+        </EntityType>
+        <EntityType Name="Domeciles">
+          <Key>
+            <PropertyRef Name="DomecileID" />
+          </Key>
+          <Property Name="DomecileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DomecileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CatsAll_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatsAll_CatBreedsAll">
+          <End Role="CatBreeds" Type="Self.CatBreeds" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBreeds">
+              <PropertyRef Name="CatBreedID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="CatBreed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatsAll_DomecilesAll">
+          <End Role="Domeciles" Type="Self.Domeciles" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domeciles">
+              <PropertyRef Name="DomecileID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="DomecileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_DogBreedsAll">
+          <End Role="DogBreeds" Type="Self.DogBreeds" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DogBreeds">
+              <PropertyRef Name="DogBreedID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="DogBreedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_DomecilesAll">
+          <End Role="Domeciles" Type="Self.Domeciles" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domeciles">
+              <PropertyRef Name="DomecileID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="DomecileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnimalsDBModelStoreContainer">
+          <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatBreeds" EntityType="Self.CatBreeds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cats" EntityType="Self.Cats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DogBreeds" EntityType="Self.DogBreeds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dogs" EntityType="Self.Dogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Domeciles" EntityType="Self.Domeciles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CatsAll_Animals" Association="Self.FK_CatsAll_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatsAll_CatBreedsAll" Association="Self.FK_CatsAll_CatBreedsAll">
+            <End Role="CatBreeds" EntitySet="CatBreeds" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatsAll_DomecilesAll" Association="Self.FK_CatsAll_DomecilesAll">
+            <End Role="Domeciles" EntitySet="Domeciles" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_Animals" Association="Self.FK_DogsAll_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_DogBreedsAll" Association="Self.FK_DogsAll_DogBreedsAll">
+            <End Role="DogBreeds" EntitySet="DogBreeds" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_DomecilesAll" Association="Self.FK_DogsAll_DomecilesAll">
+            <End Role="Domeciles" EntitySet="Domeciles" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AnimalsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cats" Relationship="Self.FK_CatsAll_Animals" FromRole="Animals" ToRole="Cats" />
+          <NavigationProperty Name="Dogs" Relationship="Self.FK_DogsAll_Animals" FromRole="Animals" ToRole="Dogs" />
+        </EntityType>
+        <EntityType Name="CatBreed">
+          <Key>
+            <PropertyRef Name="CatBreedID" />
+          </Key>
+          <Property Name="CatBreedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatBreedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cats" Relationship="Self.FK_CatsAll_CatBreedsAll" FromRole="CatBreeds" ToRole="Cats" />
+        </EntityType>
+        <EntityType Name="Cat">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LikesCatnip" Type="Boolean" />
+          <Property Name="CatBreed" Type="Int32" />
+          <Property Name="DomecileID" Type="Int32" />
+          <Property Name="AnimalID" Type="Int32" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_CatsAll_Animals" FromRole="Cats" ToRole="Animals" />
+          <NavigationProperty Name="CatBreed1" Relationship="Self.FK_CatsAll_CatBreedsAll" FromRole="Cats" ToRole="CatBreeds" />
+          <NavigationProperty Name="Domecile" Relationship="Self.FK_CatsAll_DomecilesAll" FromRole="Cats" ToRole="Domeciles" />
+        </EntityType>
+        <EntityType Name="DogBreed">
+          <Key>
+            <PropertyRef Name="DogBreedID" />
+          </Key>
+          <Property Name="DogBreedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DogBreedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dogs" Relationship="Self.FK_DogsAll_DogBreedsAll" FromRole="DogBreeds" ToRole="Dogs" />
+        </EntityType>
+        <EntityType Name="Dog">
+          <Key>
+            <PropertyRef Name="DogID" />
+          </Key>
+          <Property Name="DogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaysFetch" Type="Boolean" />
+          <Property Name="DogBreedID" Type="Int32" />
+          <Property Name="DomecileID" Type="Int32" />
+          <Property Name="AnimalID" Type="Int32" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_DogsAll_Animals" FromRole="Dogs" ToRole="Animals" />
+          <NavigationProperty Name="DogBreed" Relationship="Self.FK_DogsAll_DogBreedsAll" FromRole="Dogs" ToRole="DogBreeds" />
+          <NavigationProperty Name="Domecile" Relationship="Self.FK_DogsAll_DomecilesAll" FromRole="Dogs" ToRole="Domeciles" />
+        </EntityType>
+        <EntityType Name="Domecile">
+          <Key>
+            <PropertyRef Name="DomecileID" />
+          </Key>
+          <Property Name="DomecileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DomecileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cats" Relationship="Self.FK_CatsAll_DomecilesAll" FromRole="Domeciles" ToRole="Cats" />
+          <NavigationProperty Name="Dogs" Relationship="Self.FK_DogsAll_DomecilesAll" FromRole="Domeciles" ToRole="Dogs" />
+        </EntityType>
+        <Association Name="FK_CatsAll_Animals">
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_Animals">
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatsAll_CatBreedsAll">
+          <End Role="CatBreeds" Type="Self.CatBreed" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBreeds">
+              <PropertyRef Name="CatBreedID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="CatBreed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatsAll_DomecilesAll">
+          <End Role="Domeciles" Type="Self.Domecile" Multiplicity="0..1" />
+          <End Role="Cats" Type="Self.Cat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domeciles">
+              <PropertyRef Name="DomecileID" />
+            </Principal>
+            <Dependent Role="Cats">
+              <PropertyRef Name="DomecileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_DogBreedsAll">
+          <End Role="DogBreeds" Type="Self.DogBreed" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DogBreeds">
+              <PropertyRef Name="DogBreedID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="DogBreedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogsAll_DomecilesAll">
+          <End Role="Domeciles" Type="Self.Domecile" Multiplicity="0..1" />
+          <End Role="Dogs" Type="Self.Dog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domeciles">
+              <PropertyRef Name="DomecileID" />
+            </Principal>
+            <Dependent Role="Dogs">
+              <PropertyRef Name="DomecileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AnimalsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animals" EntityType="Self.Animal" />
+          <EntitySet Name="CatBreeds" EntityType="Self.CatBreed" />
+          <EntitySet Name="Cats" EntityType="Self.Cat" />
+          <EntitySet Name="DogBreeds" EntityType="Self.DogBreed" />
+          <EntitySet Name="Dogs" EntityType="Self.Dog" />
+          <EntitySet Name="Domeciles" EntityType="Self.Domecile" />
+          <AssociationSet Name="FK_CatsAll_Animals" Association="Self.FK_CatsAll_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_Animals" Association="Self.FK_DogsAll_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatsAll_CatBreedsAll" Association="Self.FK_CatsAll_CatBreedsAll">
+            <End Role="CatBreeds" EntitySet="CatBreeds" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatsAll_DomecilesAll" Association="Self.FK_CatsAll_DomecilesAll">
+            <End Role="Domeciles" EntitySet="Domeciles" />
+            <End Role="Cats" EntitySet="Cats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_DogBreedsAll" Association="Self.FK_DogsAll_DogBreedsAll">
+            <End Role="DogBreeds" EntitySet="DogBreeds" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogsAll_DomecilesAll" Association="Self.FK_DogsAll_DomecilesAll">
+            <End Role="Domeciles" EntitySet="Domeciles" />
+            <End Role="Dogs" EntitySet="Dogs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AnimalsDBModelStoreContainer" CdmEntityContainer="AnimalsDBEntities">
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="AnimalsDBModel.Animal">
+              <MappingFragment StoreEntitySet="Animals">
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatBreeds">
+            <EntityTypeMapping TypeName="AnimalsDBModel.CatBreed">
+              <MappingFragment StoreEntitySet="CatBreeds">
+                <ScalarProperty Name="CatBreedID" ColumnName="CatBreedID" />
+                <ScalarProperty Name="CatBreedName" ColumnName="CatBreedName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cats">
+            <EntityTypeMapping TypeName="AnimalsDBModel.Cat">
+              <MappingFragment StoreEntitySet="Cats">
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="LikesCatnip" ColumnName="LikesCatnip" />
+                <ScalarProperty Name="CatBreed" ColumnName="CatBreed" />
+                <ScalarProperty Name="DomecileID" ColumnName="DomecileID" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DogBreeds">
+            <EntityTypeMapping TypeName="AnimalsDBModel.DogBreed">
+              <MappingFragment StoreEntitySet="DogBreeds">
+                <ScalarProperty Name="DogBreedID" ColumnName="DogBreedID" />
+                <ScalarProperty Name="DogBreedName" ColumnName="DogBreedName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dogs">
+            <EntityTypeMapping TypeName="AnimalsDBModel.Dog">
+              <MappingFragment StoreEntitySet="Dogs">
+                <ScalarProperty Name="DogID" ColumnName="DogID" />
+                <ScalarProperty Name="PlaysFetch" ColumnName="PlaysFetch" />
+                <ScalarProperty Name="DogBreedID" ColumnName="DogBreedID" />
+                <ScalarProperty Name="DomecileID" ColumnName="DomecileID" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Domeciles">
+            <EntityTypeMapping TypeName="AnimalsDBModel.Domecile">
+              <MappingFragment StoreEntitySet="Domeciles">
+                <ScalarProperty Name="DomecileID" ColumnName="DomecileID" />
+                <ScalarProperty Name="DomecileName" ColumnName="DomecileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
