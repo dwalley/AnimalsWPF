@@ -1,2 +1,2 @@
 # AnimalsWPF
-Small relational DB and asynchronous operations example.
+Small relational DB and multithreaded operations example.
